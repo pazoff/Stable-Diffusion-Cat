@@ -8,7 +8,7 @@ import os
 from cat.mad_hatter.decorators import tool, hook, plugin
 from pydantic import BaseModel
 from typing import Dict
-from cat.looking_glass.stray_cat import StrayCat
+
 
 
 # Settings
