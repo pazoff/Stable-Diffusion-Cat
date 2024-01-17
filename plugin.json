@@ -1,0 +1,9 @@
+{
+    "name": "Stable Diffusion Cat",
+    "description": "Generate images using Stable Diffusion free API (Wizmodel.com API). How to use it? Just add * to the end of your prompt. Example: A colorful drawing of The Cheshire Cat.*",
+    "author_name": "Pazoff",
+    "tags": "drawing,stable-diffusion,image generation,Wizmodel.com,api",
+    "plugin_url": "https://github.com/pazoff/Stable-Diffusion-Cat",
+    "thumb": "https://raw.githubusercontent.com/pazoff/Stable-Diffusion-Cat/104eeff04ada1e4ff2d62371047a81ca268db375/stable-diffusion-logo.png",
+    "version": "0.0.1"
+}
