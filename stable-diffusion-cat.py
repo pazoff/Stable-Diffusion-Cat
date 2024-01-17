@@ -127,11 +127,11 @@ def agent_fast_reply(fast_reply, cat) -> Dict:
         if generated_image_path:
             print(f"Image successfully generated and saved as: {generated_image_path}")
             cat.send_ws_message(content='<p><b>'+ message +'</b></p><img src="' + generated_image_path + '">', msg_type='chat')
+            return_direct = True
         else:
             print("Image generation failed.")
             cat.send_ws_message('No image was generated!', msg_type='chat')
-        return_direct = True
-
+            return_direct = False
     
 
     # Manage response
