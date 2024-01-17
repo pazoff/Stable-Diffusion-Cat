@@ -7,6 +7,8 @@ from datetime import datetime
 import os
 from cat.mad_hatter.decorators import tool, hook, plugin
 from pydantic import BaseModel
+from typing import Dict
+from cat.looking_glass.stray_cat import StrayCat
 
 
 # Settings
@@ -109,14 +111,16 @@ def generate_image(prompt, cat, steps):
     # Return False if image generation fails
     return False
 
-@hook
-def before_cat_reads_message(user_message_json: dict, cat):
-    
-    message = user_message_json["text"]
-    
+@hook(priority=10)
+def agent_fast_reply(fast_reply, cat) -> Dict:
+    return_direct = False
+    # Get user message
+    message = cat.working_memory["user_message_json"]["text"]
+
+
     if message.endswith('*'):
         message = message[:-1]
-        user_message_json["text"] = message
+        
         print("Generating image based on the prompt " + message)
         cat.send_ws_message(content='Generating image based on the prompt ' + message + ' ...', msg_type='chat_token')
         generated_image_path = generate_image(message, cat, 50)
@@ -126,7 +130,12 @@ def before_cat_reads_message(user_message_json: dict, cat):
         else:
             print("Image generation failed.")
             cat.send_ws_message('No image was generated!', msg_type='chat')
-        
-        cat.send_ws_message(content='Cheshire cat is thinking on ' + message + ' ...', msg_type='chat_token')
+        return_direct = True
+
     
-    return user_message_json
+
+    # Manage response
+    if return_direct:
+        return {"output": "<a href='" + generated_image_path + "' target='_blank'>Download</a> the image."}
+
+    return fast_reply
