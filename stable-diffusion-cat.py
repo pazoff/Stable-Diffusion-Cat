@@ -111,7 +111,7 @@ def generate_image(prompt, cat, steps):
     # Return False if image generation fails
     return False
 
-@hook(priority=10)
+@hook(priority=9)
 def agent_fast_reply(fast_reply, cat) -> Dict:
     return_direct = False
     # Get user message
@@ -126,16 +126,10 @@ def agent_fast_reply(fast_reply, cat) -> Dict:
         generated_image_path = generate_image(message, cat, 50)
         if generated_image_path:
             print(f"Image successfully generated and saved as: {generated_image_path}")
-            cat.send_ws_message(content='<p><b>'+ message +'</b></p><img src="' + generated_image_path + '">', msg_type='chat')
-            return_direct = True
+            return {"output": f"<p><b>{message}</b></p><img src=\"{generated_image_path}\">"}
         else:
             print("Image generation failed.")
-            cat.send_ws_message('No image was generated!', msg_type='chat')
-            return_direct = False
+            return {"output": "No image was generated!"}
     
-
-    # Manage response
-    if return_direct:
-        return {"output": "<a href='" + generated_image_path + "' target='_blank'>Download</a> the image."}
 
     return fast_reply
