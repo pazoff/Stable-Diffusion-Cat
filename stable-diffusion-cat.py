@@ -121,10 +121,11 @@ def before_cat_reads_message(user_message_json: dict, cat):
         generated_image_path = generate_image(message, cat, 50)
         if generated_image_path:
             print(f"Image successfully generated and saved as: {generated_image_path}")
-            cat.send_ws_message(content='<img src="' + generated_image_path + '">', msg_type='chat')
+            cat.send_ws_message(content='<p><b>'+ message +'</b></p><img src="' + generated_image_path + '">', msg_type='chat')
         else:
             print("Image generation failed.")
             cat.send_ws_message('No image was generated!', msg_type='chat')
 
     user_message_json["text"] = "Tell me more about " + message
+    cat.send_ws_message(content='Cheshire cat is thinking on <b>' + message + '</b> ...', msg_type='chat')
     return user_message_json
