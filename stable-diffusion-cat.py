@@ -117,7 +117,7 @@ def before_cat_reads_message(user_message_json: dict, cat):
     if message.endswith('*'):
         message = message[:-1]
         print("Generating image based on the prompt " + message)
-        cat.send_ws_message(content='Generating image based on the prompt <b>' + message + '</b> ...', msg_type='chat')
+        cat.send_ws_message(content='Generating image based on the prompt ' + message + ' ...', msg_type='chat_token')
         generated_image_path = generate_image(message, cat, 50)
         if generated_image_path:
             print(f"Image successfully generated and saved as: {generated_image_path}")
@@ -127,5 +127,5 @@ def before_cat_reads_message(user_message_json: dict, cat):
             cat.send_ws_message('No image was generated!', msg_type='chat')
 
     user_message_json["text"] = "Tell me more about " + message
-    cat.send_ws_message(content='Cheshire cat is thinking on <b>' + message + '</b> ...', msg_type='chat')
+    cat.send_ws_message(content='Cheshire cat is thinking on ' + message + ' ...', msg_type='chat_token')
     return user_message_json
