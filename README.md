@@ -1,4 +1,5 @@
 # Stable Diffusion Cat
+Turn ★ into ⭐ (top-right corner) if you like the project!
 
 Generate images using your [Cheshire cat](https://github.com/cheshire-cat-ai/core) and Stable Diffusion free API (Wizmodel.com API).
 
